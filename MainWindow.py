@@ -1,6 +1,8 @@
 # MainWindow.py
 import sys
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QVBoxLayout, QHBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QVBoxLayout, QHBoxLayout, QMenu
 from TableWidget import ExcelTableWidget
 from Buttons import Excel_Load_Button, Excel_read_seleced_data_Button
 from ComboBoxes import ExcelComboBoxes
@@ -10,6 +12,10 @@ from ListWidget import ExcelListWidget
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        
+        # Add context menu
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.on_context_menu)
 
         self.central_widget = QWidget(self)
         self.setCentralWidget(self.central_widget)
@@ -37,6 +43,14 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle('Excel Viewer')
         self.setGeometry(100, 100, 1000, 600)
+
+    # Add on_context_menu method
+    def on_context_menu(self, pos):
+        context = QMenu(self)
+        context.addAction(QAction("test 1", self))
+        context.addAction(QAction("test 2", self))
+        context.addAction(QAction("test 3", self))
+        context.exec(self.mapToGlobal(pos))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
