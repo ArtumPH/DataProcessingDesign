@@ -1,26 +1,17 @@
-# MainWindow.py
 import sys
+import os
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMenuBar, QMenu, QStatusBar, QTextEdit, QDockWidget, QVBoxLayout, QLabel, QToolBar, QTreeView, QTabWidget
 from PyQt6.QtCore import Qt, QDir
-from PyQt6.QtGui import QAction, QFileSystemModel
-from PyQt6.QtWidgets import (QMainWindow, QApplication, QWidget, 
-                             QVBoxLayout, QHBoxLayout, QMenu,
-                             QMenuBar, QStatusBar, QDockWidget,
-                             QTreeView, QTabWidget, QLabel,
-                             QTextEdit, )
-from TableWidget import ExcelTableWidget
-from Buttons import Excel_Load_Button, Excel_read_seleced_data_Button
-from ComboBoxes import ExcelComboBoxes
-from TextEdit import ExcelTextEdit
-from ListWidget import ExcelListWidget
+from PyQt6.QtGui import QFileSystemModel, QAction
 
-class MainWindow(QMainWindow):
+class VSCodeStyleWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        
+
         self.init_ui()
-    
+
     def init_ui(self):
-        self.setWindowTitle("Data Analysis")
+        self.setWindowTitle("VSCode Style Window")
         self.setGeometry(100, 100, 1200, 800)
 
         # Menu bar
@@ -64,52 +55,6 @@ class MainWindow(QMainWindow):
         explorer_dock.setWidget(explorer_tree)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, explorer_dock)
 
-#-------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------
-
-        # Add context menu
-        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.on_context_menu)
-
-        self.central_widget = QWidget(self)
-        self.setCentralWidget(self.central_widget)
-
-        self.layout = QHBoxLayout(self.central_widget)
-
-        self.table_widget = ExcelTableWidget()
-        self.layout.addWidget(self.table_widget)
-
-        self.excel_load_button = Excel_Load_Button(self.table_widget)
-        self.layout.addWidget(self.excel_load_button.load_button)
-
-        self.excel_read_button = Excel_read_seleced_data_Button(self.table_widget)
-        self.layout.addWidget(self.excel_read_button.read_button)
-
-        self.text_edit = ExcelTextEdit()
-        self.layout.addWidget(self.text_edit)
-
-        self.comboboxes = ExcelComboBoxes()
-        self.layout.addWidget(self.comboboxes.x_axis_combobox)
-        self.layout.addWidget(self.comboboxes.y_axis_combobox)
-
-        self.list_widget = ExcelListWidget()
-        self.layout.addWidget(self.list_widget)
-
-        self.setWindowTitle('Excel Viewer')
-        self.setGeometry(100, 100, 1000, 600)
-#-------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------
-    
-    # Add on_context_menu method
-    def on_context_menu(self, pos):
-        context = QMenu(self)
-        context.addAction(QAction("test 1", self))
-        context.addAction(QAction("test 2", self))
-        context.addAction(QAction("test 3", self))
-        context.exec(self.mapToGlobal(pos))
-
     def create_tab_widget(self):
         tab_widget = QTabWidget(self)
         tab_widget.setTabsClosable(True)
@@ -149,8 +94,8 @@ class MainWindow(QMainWindow):
         status_label = self.statusBar().findChild(QLabel)
         status_label.setText(f"Selected: {file_path}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    vs_code_style_window = VSCodeStyleWindow()
+    vs_code_style_window.show()
     sys.exit(app.exec())
