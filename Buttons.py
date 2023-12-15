@@ -13,12 +13,15 @@ class Excel_Load_Button:
             table_widget.load_data_from_excel(file_name)
 
 class Excel_read_seleced_data_Button:
-    def __init__(self, table_widget):
+    def __init__(self, table_widget,text_edit):
         self.read_button = QPushButton('Read Selected Data')
-        self.read_button.clicked.connect(lambda: self.read_selected_data(table_widget))
+        
+        self.read_button.clicked.connect(lambda: self.read_selected_data(table_widget,text_edit))
 
-    def read_selected_data(self, table_widget):
+    def read_selected_data(self, table_widget, text_edit):
         selected_data_matrix, selected_data_columns = table_widget.get_selected_data()
 
         if selected_data_matrix is not None:
-            table_widget.display_selected_data(selected_data_matrix, selected_data_columns)
+            dispaly_text=table_widget.display_selected_data(selected_data_matrix, selected_data_columns)
+            text_edit.display_selected_data(dispaly_text)
+            

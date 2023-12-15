@@ -8,7 +8,8 @@ class ExcelTableWidget(QTableWidget):
         super().__init__()
 
         # Add selected_data_display attribute
-        self.selected_data_display = QTextEdit(self)
+        #self.selected_data_display = QTextEdit(self)
+        self.display_text = 'test contents'
 
     def load_data_from_excel(self, file_name):
         workbook = load_workbook(file_name, data_only=True)
@@ -53,8 +54,9 @@ class ExcelTableWidget(QTableWidget):
         return selected_data_matrix, selected_data_columns
 
     def display_selected_data(self, data_matrix, columns):
-        display_text = f'Selected Data in Matrix Form:\n\n{pd.DataFrame(data_matrix, columns=columns)}'
-        self.selected_data_display.setPlainText(display_text)
+        self.display_text = f'Selected Data in Matrix Form:\n\n{pd.DataFrame(data_matrix, columns=columns)}'
+        #self.selected_data_display.setPlainText(display_text)
+        return self.display_text
 
 class ExcelTextEdit(QTextEdit):
     def __init__(self):
