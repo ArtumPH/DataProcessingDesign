@@ -1,6 +1,24 @@
 # Buttons.py
 from PyQt6.QtWidgets import QPushButton, QFileDialog
+from PyQt6.QtGui import QIcon
 
+#Plot_Diagram_Buttons
+class Button_With_Image(QPushButton):
+    def __init__(self, parent, image_path):
+        super().__init__(parent)
+        self.setFlat(True)
+        self.setStyleSheet("border: none;")
+        self.icon = QIcon(image_path)
+        self.setIcon(self.icon)
+        self.setIconSize(self.icon.actualSize(self.size()))
+        #self.setIconSize(self.size())
+        #self.clicked.connect(self.on_click)
+    '''
+    def on_click(self):
+        print('Image Button Clicked')
+    '''
+        
+#Excel_Buttons
 class Excel_Load_Button:
     def __init__(self, table_widget):
         self.load_button = QPushButton('Load Excel')

@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (QMainWindow, QApplication, QWidget,
                              QTreeView, QTabWidget, QLabel,
                              QTextEdit, QFileDialog, )
 from TableWidget import ExcelTableWidget
-#from Buttons import Excel_Load_Button, Excel_read_seleced_data_Button
+from Buttons import Button_With_Image
 from ComboBoxes import ExcelComboBoxes
 from TextEdit import ExcelTextEdit
 from ListWidget import ExcelListWidget
@@ -27,6 +27,9 @@ class MainWindow(QMainWindow):
         self.table_widget = ExcelTableWidget()
         self.tab_widget = self.create_tab_widget()
         self.selected_data_display_text = ExcelTextEdit()
+
+        # Diagram Choose Buttons
+        self.Plot_X_Y_Button = Button_With_Image(self,"GrassTexture.jpg") # Replace with the actual path to image
 
         # Central tab widget
         self.central_widget = QWidget(self)
@@ -99,7 +102,7 @@ class MainWindow(QMainWindow):
         # Docked widget for Plot types Area
         plot_types_dock = QDockWidget("Plot types", self)
         plot_types_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
-        #plot_types_dock.setWidget(self.)
+        plot_types_dock.setWidget(self.Plot_X_Y_Button)
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, plot_types_dock)
 
         # Docked widget for loaded data table Area
@@ -107,7 +110,19 @@ class MainWindow(QMainWindow):
         data_load_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
         data_load_dock.setWidget(self.selected_data_display_text)
         data_load_dock.setMinimumSize(500,500)
-        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, data_load_dock) 
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, data_load_dock)
+
+        # Docked widget for After use
+        after_use_dock = QDockWidget("After use", self)
+        after_use_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
+        #after_use_dock.setWidget(self.)
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, after_use_dock)
+
+        # Combine docked widgets
+        self.tabifyDockWidget(data_load_dock, plot_types_dock)
+
+        # Raise docked widgets(Needs after combine docked widgets to work)
+        data_load_dock.raise_()
 
         # Add context menu
         self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
