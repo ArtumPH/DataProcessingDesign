@@ -12,6 +12,7 @@ from Buttons import Button_With_Image
 from ComboBoxes import ExcelComboBoxes
 from TextEdit import ExcelTextEdit
 from ListWidget import ExcelListWidget
+from CollapsibleWidgets import CollapsibleWidget
 #from Menubar_functions import Menu_Open
 
 class MainWindow(QMainWindow):
@@ -27,6 +28,7 @@ class MainWindow(QMainWindow):
         self.table_widget = ExcelTableWidget()
         self.tab_widget = self.create_tab_widget()
         self.selected_data_display_text = ExcelTextEdit()
+        self.plot_choose_widget = CollapsibleWidget("Plot",self)
 
         # Diagram Choose Buttons
         self.Plot_X_Y_Button = Button_With_Image(self,"GrassTexture.jpg") # Replace with the actual path to image
@@ -100,9 +102,9 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, explorer_dock)
         
         # Docked widget for Plot types Area
-        plot_types_dock = QDockWidget("Plot types", self)
+        plot_types_dock = QDockWidget("Plot", self)
         plot_types_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
-        plot_types_dock.setWidget(self.Plot_X_Y_Button)
+        plot_types_dock.setWidget(self.plot_choose_widget)
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, plot_types_dock)
 
         # Docked widget for loaded data table Area
