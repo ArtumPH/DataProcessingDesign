@@ -6,7 +6,8 @@ from PyQt6.QtWidgets import (QMainWindow, QApplication, QWidget,
                              QVBoxLayout, QHBoxLayout, QMenu,
                              QMenuBar, QStatusBar, QDockWidget,
                              QTreeView, QTabWidget, QLabel,
-                             QTextEdit, QFileDialog, )
+                             QTextEdit, QFileDialog, QGridLayout,
+                             QScrollArea)
 from TableWidget import ExcelTableWidget
 from Buttons import Button_With_Image
 from ComboBoxes import ExcelComboBoxes
@@ -28,10 +29,64 @@ class MainWindow(QMainWindow):
         self.table_widget = ExcelTableWidget()
         self.tab_widget = self.create_tab_widget()
         self.selected_data_display_text = ExcelTextEdit()
-        self.plot_choose_widget = CollapsibleWidget("Plot",self)
+    # Plot Area Widgets
+        self.plot_scroll_area = QScrollArea()
+        self.plot_scroll_area_content=QWidget()
+        
+        self.pairwise_data_choose_layout = QGridLayout()
+        self.statistical_distributions_choose_layout = QGridLayout()
+        self.gridded_data_choose_layout = QGridLayout()
+        self.irregularly_gridded_data_choose_layout = QGridLayout()
+        self.three_d_and_volumetric_data_choose_layout = QGridLayout()
 
-        # Diagram Choose Buttons
-        self.Plot_X_Y_Button = Button_With_Image(self,"GrassTexture.jpg") # Replace with the actual path to image
+        self.pairwise_data_choose_widget = CollapsibleWidget("Pairwise data",self)
+        self.statistical_distributions_choose_widget = CollapsibleWidget("Statistical distributions",self)
+        self.gridded_data_choose_widget = CollapsibleWidget("Gridded data",self)
+        self.irregularly_gridded_data_choose_widget = CollapsibleWidget("Irregularly gridded data",self)
+        self.three_d_and_volumetric_data_choose_widget = CollapsibleWidget("3D and volumetric data",self)
+
+        # Pairwise data plots Choose Buttons
+        self.plot_x_y_button = Button_With_Image(self,"GrassTexture.jpg") # Replace with the actual path to image
+        self.scatter_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.bar_x_height_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.stem_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.fill_between_x_y1_y2_Button = Button_With_Image(self,"GrassTexture.jpg")
+        self.stackplot_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.stairs_values_button = Button_With_Image(self,"GrassTexture.jpg")
+
+        # Statistical distributions plots Choose Buttons
+        self.hist_x_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.boxplot_x_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.errorbar_x_y_yerr_xerr_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.violinplot_D_button= Button_With_Image(self,"GrassTexture.jpg")
+        self.eventplot_D_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.hist2d_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.hexbin_x_y_C_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.pie_x_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.ecdf_x_button = Button_With_Image(self,"GrassTexture.jpg")
+
+        # Gridded data plots Choose Buttons
+        self.imshow_Z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.pcolormesh_X_Y_Z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.contour_X_Y_Z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.contourf_X_Y_Z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.barbs_X_Y_U_V_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.quiver_X_Y_U_V_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.streamplot_X_Y_U_V_button = Button_With_Image(self,"GrassTexture.jpg")
+
+        # Irregularly gridded data plots Choose Buttons
+        self.tricontour_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.tricontourf_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.trisurf_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.triplot_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
+
+        # 3D and volumetric data plots Choose Buttons
+        self.scatter3D_xs_ys_zs_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.plot_surface_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.plot_trisurf_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.voxels_x_y_z_filled_button = Button_With_Image(self,"GrassTexture.jpg")
+        self.plot_wireframe_x_y_z_button = Button_With_Image(self,"GrassTexture.jpg")
+    #----------------------------------------------------------------------------
 
         # Central tab widget
         self.central_widget = QWidget(self)
@@ -104,7 +159,62 @@ class MainWindow(QMainWindow):
         # Docked widget for Plot types Area
         plot_types_dock = QDockWidget("Plot", self)
         plot_types_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
-        plot_types_dock.setWidget(self.plot_choose_widget)
+        plot_types_dock.setWidget(self.plot_scroll_area)
+        self.plot_scroll_area.setWidget(self.plot_scroll_area_content)
+        self.plot_scroll_area.setWidgetResizable(True)
+        self.plot_type_layout=QVBoxLayout(self.plot_scroll_area_content)
+
+#####################################From here to fix the problem#####################################                
+
+        self.plot_type_layout.addWidget(self.pairwise_data_choose_widget)
+        self.plot_type_layout.addWidget(self.statistical_distributions_choose_widget)
+        self.plot_type_layout.addWidget(self.gridded_data_choose_widget)
+        self.plot_type_layout.addWidget(self.irregularly_gridded_data_choose_widget)
+        self.plot_type_layout.addWidget(self.three_d_and_volumetric_data_choose_widget)
+
+        self.pairwise_data_choose_layout.addWidget(self.plot_x_y_button,0,0)
+        self.pairwise_data_choose_layout.addWidget(self.scatter_x_y_button,0,1)
+        self.pairwise_data_choose_layout.addWidget(self.bar_x_height_button,0,2)
+        self.pairwise_data_choose_layout.addWidget(self.stem_x_y_button,0,3)
+        self.pairwise_data_choose_layout.addWidget(self.fill_between_x_y1_y2_Button,0,4)
+        self.pairwise_data_choose_layout.addWidget(self.stackplot_x_y_button,1,0)
+        self.pairwise_data_choose_layout.addWidget(self.stairs_values_button,1,1)
+
+        self.statistical_distributions_choose_layout.addWidget(self.hist_x_button,0,0)
+        self.statistical_distributions_choose_layout.addWidget(self.boxplot_x_button,0,1)
+        self.statistical_distributions_choose_layout.addWidget(self.errorbar_x_y_yerr_xerr_button,0,2)
+        self.statistical_distributions_choose_layout.addWidget(self.violinplot_D_button,0,3)
+        self.statistical_distributions_choose_layout.addWidget(self.eventplot_D_button,0,4)
+        self.statistical_distributions_choose_layout.addWidget(self.hist2d_x_y_button,1,0)
+        self.statistical_distributions_choose_layout.addWidget(self.hexbin_x_y_C_button,1,1)
+        self.statistical_distributions_choose_layout.addWidget(self.pie_x_button,1,2)
+        self.statistical_distributions_choose_layout.addWidget(self.ecdf_x_button,1,3)
+
+        self.gridded_data_choose_layout.addWidget(self.imshow_Z_button,0,0)
+        self.gridded_data_choose_layout.addWidget(self.pcolormesh_X_Y_Z_button,0,1)
+        self.gridded_data_choose_layout.addWidget(self.contour_X_Y_Z_button,0,2)
+        self.gridded_data_choose_layout.addWidget(self.contourf_X_Y_Z_button,0,3)
+        self.gridded_data_choose_layout.addWidget(self.barbs_X_Y_U_V_button,0,4)
+        self.gridded_data_choose_layout.addWidget(self.quiver_X_Y_U_V_button,1,0)
+        self.gridded_data_choose_layout.addWidget(self.streamplot_X_Y_U_V_button,1,1)
+
+        self.irregularly_gridded_data_choose_layout.addWidget(self.tricontour_x_y_z_button,0,0)
+        self.irregularly_gridded_data_choose_layout.addWidget(self.tricontourf_x_y_z_button,0,1)
+        self.irregularly_gridded_data_choose_layout.addWidget(self.trisurf_x_y_z_button,0,2)
+        self.irregularly_gridded_data_choose_layout.addWidget(self.triplot_x_y_button,0,3)
+
+        self.three_d_and_volumetric_data_choose_layout.addWidget(self.scatter3D_xs_ys_zs_button,0,0)
+        self.three_d_and_volumetric_data_choose_layout.addWidget(self.plot_surface_x_y_z_button,0,1)
+        self.three_d_and_volumetric_data_choose_layout.addWidget(self.plot_trisurf_x_y_z_button,0,2)
+        self.three_d_and_volumetric_data_choose_layout.addWidget(self.voxels_x_y_z_filled_button,0,3)
+        self.three_d_and_volumetric_data_choose_layout.addWidget(self.plot_wireframe_x_y_z_button,0,4)
+
+        self.pairwise_data_choose_widget.setContentLayout(self.pairwise_data_choose_layout)
+        self.statistical_distributions_choose_widget.setContentLayout(self.statistical_distributions_choose_layout)
+        self.gridded_data_choose_widget.setContentLayout(self.gridded_data_choose_layout)
+        self.irregularly_gridded_data_choose_widget.setContentLayout(self.irregularly_gridded_data_choose_layout)
+        self.three_d_and_volumetric_data_choose_widget.setContentLayout(self.three_d_and_volumetric_data_choose_layout)
+
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, plot_types_dock)
 
         # Docked widget for loaded data table Area
