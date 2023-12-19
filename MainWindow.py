@@ -159,18 +159,24 @@ class MainWindow(QMainWindow):
         # Docked widget for Plot types Area
         plot_types_dock = QDockWidget("Plot", self)
         plot_types_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
+        plot_types_dock.setMinimumSize(300,300)
         plot_types_dock.setWidget(self.plot_scroll_area)
         self.plot_scroll_area.setWidget(self.plot_scroll_area_content)
         self.plot_scroll_area.setWidgetResizable(True)
         self.plot_type_layout=QVBoxLayout(self.plot_scroll_area_content)
 
-#####################################From here to fix the problem#####################################                
+        #From here to fix the problem about                 ##############################
+        #QGridlayout cant have flow widget inside           ##############################
+        #maybe should use QListWidget or QlistView instead  ##############################
 
         self.plot_type_layout.addWidget(self.pairwise_data_choose_widget)
         self.plot_type_layout.addWidget(self.statistical_distributions_choose_widget)
         self.plot_type_layout.addWidget(self.gridded_data_choose_widget)
         self.plot_type_layout.addWidget(self.irregularly_gridded_data_choose_widget)
         self.plot_type_layout.addWidget(self.three_d_and_volumetric_data_choose_widget)
+
+        # Add stretch to push the buttons to the top, it must be added after all the buttons are added
+        self.plot_type_layout.addStretch() 
 
         self.pairwise_data_choose_layout.addWidget(self.plot_x_y_button,0,0)
         self.pairwise_data_choose_layout.addWidget(self.scatter_x_y_button,0,1)
@@ -179,6 +185,7 @@ class MainWindow(QMainWindow):
         self.pairwise_data_choose_layout.addWidget(self.fill_between_x_y1_y2_Button,0,4)
         self.pairwise_data_choose_layout.addWidget(self.stackplot_x_y_button,1,0)
         self.pairwise_data_choose_layout.addWidget(self.stairs_values_button,1,1)
+
 
         self.statistical_distributions_choose_layout.addWidget(self.hist_x_button,0,0)
         self.statistical_distributions_choose_layout.addWidget(self.boxplot_x_button,0,1)
@@ -203,6 +210,8 @@ class MainWindow(QMainWindow):
         self.irregularly_gridded_data_choose_layout.addWidget(self.trisurf_x_y_z_button,0,2)
         self.irregularly_gridded_data_choose_layout.addWidget(self.triplot_x_y_button,0,3)
 
+        #self.irregularly_gridded_data_choose_layout.spacerItem().changeSize(0,0,QSizePolicy.Policy.Expanding,QSizePolicy.Policy.Minimum)
+
         self.three_d_and_volumetric_data_choose_layout.addWidget(self.scatter3D_xs_ys_zs_button,0,0)
         self.three_d_and_volumetric_data_choose_layout.addWidget(self.plot_surface_x_y_z_button,0,1)
         self.three_d_and_volumetric_data_choose_layout.addWidget(self.plot_trisurf_x_y_z_button,0,2)
@@ -221,7 +230,7 @@ class MainWindow(QMainWindow):
         data_load_dock = QDockWidget("Loaded data", self)
         data_load_dock.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetFloatable | QDockWidget.DockWidgetFeature.DockWidgetMovable)
         data_load_dock.setWidget(self.selected_data_display_text)
-        data_load_dock.setMinimumSize(500,500)
+        data_load_dock.setMinimumSize(300,300)
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, data_load_dock)
 
         # Docked widget for After use
