@@ -11,3 +11,25 @@ Project progress：
 4.make collapsible widget button works
 
 5.optimize collapsible widget layout
+
+6.Plugin system and market system
+
+mathematica能够计算复杂数学公式并绘制成图，但仍需代码操作，软件售卖价格较贵。
+阿里AntV是开源平台，开源了非常多的图样源码，但仍需代码操作。
+ChartCube无需代码可网页端直接加载数据文件，并直接转化为图表，但图表类型较少。
+
+我的软件的特点：
+
+1.无需代码，可全程鼠标操作。
+
+2.可读取所有类型数据文件。
+
+3.图表类型多。
+
+4.可将公式直接转换成相应关系图表。
+
+5.免费使用。
+
+6.开放插件市场，收取一定的中间维护费用。
+
+7.付费可使用云端存储服务。
