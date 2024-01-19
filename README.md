@@ -15,8 +15,11 @@ Project progress：
 6.Plugin system and market system
 
 mathematica能够计算复杂数学公式并绘制成图，但仍需代码操作，软件售卖价格较贵。
+
 阿里AntV是开源平台，开源了非常多的图样源码，但仍需代码操作。
+
 ChartCube无需代码可网页端直接加载数据文件，并直接转化为图表，但图表类型较少。
+
 
 我的软件的特点：
 
