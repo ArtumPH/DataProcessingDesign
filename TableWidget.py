@@ -27,6 +27,37 @@ class ExcelTableWidget(QTableWidget):
         header = self.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
 
+    #Unfinished function
+    def get_selected_data_table_form(self):
+        selected_items = self.selectedItems()
+
+        if not selected_items:
+            QMessageBox.warning(self, 'No Selection', 'Please select some cells before reading data.')
+            return
+
+        #rows = set()
+        #cols = set()
+        rows = list()
+        cols = list()
+
+        for item in selected_items:
+            rows.add(item.row())
+            cols.add(item.column())
+
+        #selected_rows = sorted(list(rows))
+        #selected_cols = sorted(list(cols))
+        selected_rows = rows
+        selected_cols = cols
+
+        selected_data_matrix = []
+        for row in selected_rows:
+            row_data = [self.item(row, col) for col in selected_cols]
+            selected_data_matrix.append(row_data)
+
+        selected_data_columns = [f'{col+1}' for col in selected_cols]
+
+        return selected_data_matrix, selected_data_columns
+
     def get_selected_data(self):
         selected_items = self.selectedItems()
 
@@ -34,6 +65,9 @@ class ExcelTableWidget(QTableWidget):
             QMessageBox.warning(self, 'No Selection', 'Please select some cells before reading data.')
             return
 
+        #rows = list()
+        #cols = list()
+        #Is it right and safe to use set rather than list? Set dont allowed repeated elements.
         rows = set()
         cols = set()
 
@@ -41,6 +75,8 @@ class ExcelTableWidget(QTableWidget):
             rows.add(item.row())
             cols.add(item.column())
 
+        #selected_rows = rows
+        #selected_cols = cols
         selected_rows = sorted(list(rows))
         selected_cols = sorted(list(cols))
 

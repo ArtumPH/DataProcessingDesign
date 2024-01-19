@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.three_d_and_volumetric_data_choose_widget = CollapsibleWidget("3D and volumetric data",self)
 
         # Pairwise data plots Choose Buttons
-        self.plot_x_y_button = Button_With_Image(self,"GrassTexture.jpg") # Replace with the actual path to image
+        self.plot_x_y_button = Button_With_Image(self,"Pic\lineGraphy.png") # Replace with the actual path to image
         self.scatter_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
         self.bar_x_height_button = Button_With_Image(self,"GrassTexture.jpg")
         self.stem_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
