@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.table_widget = ExcelTableWidget()
         self.tab_widget = self.create_tab_widget()
         self.selected_data_display_text = ExcelTextEdit()
-    # Plot Area Widgets
+    # Plot Area Widgets 
         self.plot_scroll_area = QScrollArea()
         self.plot_scroll_area_content=QWidget()
         
@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.three_d_and_volumetric_data_choose_widget = CollapsibleWidget("3D and volumetric data",self)
 
         # Pairwise data plots Choose Buttons
-        self.plot_x_y_button = Button_With_Image(self,"Pic\lineGraphy.png") # Replace with the actual path to image
+        self.plot_x_y_button = Button_With_Image(self,"Pic/lineGraphy.png") # Replace with the actual path to image
         self.scatter_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
         self.bar_x_height_button = Button_With_Image(self,"GrassTexture.jpg")
         self.stem_x_y_button = Button_With_Image(self,"GrassTexture.jpg")
